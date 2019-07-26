@@ -1,0 +1,22 @@
+import { GET_CUSTOMERS, ADD_CUSTOMERS } from '../action/types';
+
+const initialState = {
+    customers: [],
+    customer: {}
+}
+
+export default function (state = initialState, action) {
+    switch(action.type) {
+        case GET_CUSTOMERS:
+            console.log(action.type);
+            console.log(action.payload);
+            // console.log({...state, customers: "ddddd"});
+            // console.log(state);
+            return {
+                ...state,
+                customers: action.payload
+            };
+        default:
+            return state;
+    }
+}
