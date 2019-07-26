@@ -20,7 +20,8 @@ class CreatePermissionUrl extends Component {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
+                // "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
+                "x-api-key": "q3g8DzjKRl64EQUHEFI4b4m7ef4n1yhl26CvXOwF"
             }
         }).then(res => {
             console.log(res);

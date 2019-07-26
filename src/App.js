@@ -21,6 +21,7 @@ import Tmp from './components/tmp'
 
 class App extends Component {
   // constructor(){
+  //   super();
   //   this.installApp = this.installApp.bind(this);
   // }
 
@@ -61,19 +62,17 @@ class App extends Component {
           panelID: 'product-filtering-tab',
       }
   ];
-
     return (
       <div className="App">
         <head>
           <link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/latest/polaris.css" />
         </head>
-        {/* <AppProvider>
-          This button is for navigating to the installation process
-          <Button primary url="/shopify/install">
+        <AppProvider>
+          <Button primary url="/shopify/install?shop=silk-jc.myshopify">
             Install App
           </Button>
-        </AppProvider> */}
-        <AppProvider>
+        </AppProvider>
+        {/* <AppProvider>
           <div>
             <Card>
               <Tabs tabs={tabs} selected={this.state.selected} onSelect={this.handleTabChange.bind(this)} />
@@ -93,7 +92,6 @@ class App extends Component {
                     <div>
                       <SalesRepList />
                     </div>
-                    // <p>third tab {this.state.selected} selected</p>
                 }
                 {
                     this.state.selected == 3 &&
@@ -106,7 +104,7 @@ class App extends Component {
               </Card.Section>
             </Card>
           </div>
-        </AppProvider>
+        </AppProvider> */}
         <Router>
           <Route path="/shopify/install" component={ CreatePermissionUrl } />
           <Route path="/shopify/callback" component={ RequestToken } />

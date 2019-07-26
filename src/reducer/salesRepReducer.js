@@ -12,6 +12,11 @@ export default function (state = initialState, action) {
                 ...state,
                 salesReps: action.payload
             };
+        case ADD_SALESREP:
+            return {
+                ...state,
+                salesRep: action.payload
+            }
         default:
             return state;
     }

@@ -10,8 +10,6 @@ export default function (state = initialState, action) {
         case GET_CUSTOMERS:
             console.log(action.type);
             console.log(action.payload);
-            // console.log({...state, customers: "ddddd"});
-            // console.log(state);
             return {
                 ...state,
                 customers: action.payload
