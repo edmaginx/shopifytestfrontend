@@ -26,6 +26,7 @@ class RequestToken extends Component {
             this.setState({
                 token: token
             });
+            window.location.href = '/shopify/dashboard';
         } else {
             const values = queryString.parse(this.props.location.search);
             axios.get(`${api_url}/core/0/requestToken`, {
@@ -48,6 +49,7 @@ class RequestToken extends Component {
                     this.setState({
                         token: res.data.token
                     });
+                    window.location.href = '/shopify/dashboard';
                 }).catch(console.log);
         }
     }

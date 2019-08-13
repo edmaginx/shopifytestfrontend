@@ -11,17 +11,19 @@ import queryString from 'query-string';
 
 
 class CreatePermissionUrl extends Component {
+    
     render() {
         const values = queryString.parse(this.props.location.search);
+        console.log(values);
         axios.get(`${process.env.REACT_APP_API_GATEWAY_URL}/core/0/getStore`, {
             params: {
-                "store_hash": values.shop.split('.')[0]
+                "store_hash": values.shop.split('.')[0],
             },
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                // "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
-                "x-api-key": "q3g8DzjKRl64EQUHEFI4b4m7ef4n1yhl26CvXOwF"
+                "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
+                // "x-api-key": "q3g8DzjKRl64EQUHEFI4b4m7ef4n1yhl26CvXOwF"
             }
         }).then(res => {
             console.log(res);
