@@ -14,7 +14,7 @@ class CompanyCardContainer extends React.Component{
         super()
         this.state = {
             companyList: [],
-            active: true,
+            active: false,
             newCompany: {
                 name: "Please type in the name for the company",
                 catalog: "what catalog does this company belong to",
