@@ -9,7 +9,7 @@ import {
 import axios from 'axios';
 import queryString from 'query-string';
 import { connect } from "react-redux";
-import { storeOrigin } from '../action/landingAction'
+import { storeOrigin, storeToken } from '../action/landingAction'
 import createApp from '@shopify/app-bridge';
 import {Redirect} from '@shopify/app-bridge/actions';
 
@@ -19,16 +19,14 @@ class RequestToken extends Component {
         this.state = {
             token: null
         };
-        console.log(props);
     }
 
 
-
-    componentWillMount() {
-        console.log(this.state.shopOrigin);
+    render() {
         const app = createApp({
             apiKey: `2e222e5fc427a57adc4910868561c7a9`,
-            shopOrigin: "silk-jc.myshopify.com",
+            // shopOrigin: "edwaleong-0.myshopify.com",
+            shopOrigin: localStorage.getItem('shopOrigin'),
             forceRedirect: true
         });
         const redirect = Redirect.create(app);
@@ -36,14 +34,10 @@ class RequestToken extends Component {
         const token = localStorage.getItem('token');
         if (token) {
             console.log(token);
-            this.setState({
-                token: token
-            });
+            this.props.storeToken(token);
 
             // Go to {shopUrl}/admin/customers
             redirect.dispatch(Redirect.Action.ADMIN_PATH, '/apps/oauth-testing');
-
-            // window.location.href = '/shopify/dashboard';
         } else {
             const values = queryString.parse(this.props.location.search);
             axios.get(`${api_url}/core/0/requestToken`, {
@@ -66,17 +60,12 @@ class RequestToken extends Component {
                     this.setState({
                         token: res.data.token
                     });
-                    window.location.href = '/shopify/dashboard';
+                    redirect.dispatch(Redirect.Action.ADMIN_PATH, '/apps/oauth-testing');
                 }).catch(console.log);
         }
-    }
-
-    render() {
         return ( 
             <div> 
-            {
-                this.state.token
-            } 
+                Redirecting to app...
             </div>
         )
     }
@@ -84,6 +73,7 @@ class RequestToken extends Component {
 
 const mapStateToProps = state => ({
     shopOrigin: state.landingState.shopOrigin,
+    shopToken: state.landingState.shopToken
 })
 
-export default connect(mapStateToProps, { storeOrigin })(RequestToken);
+export default connect(mapStateToProps, { storeOrigin, storeToken })(RequestToken);

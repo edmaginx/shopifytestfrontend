@@ -15,6 +15,7 @@ class CreatePermissionUrl extends Component {
     render() {
         const values = queryString.parse(this.props.location.search);
         console.log(values);
+        localStorage.setItem("shopOrigin", values.shop + ".com");
         axios.get(`${process.env.REACT_APP_API_GATEWAY_URL}/core/0/getStore`, {
             params: {
                 "store_hash": values.shop.split('.')[0],

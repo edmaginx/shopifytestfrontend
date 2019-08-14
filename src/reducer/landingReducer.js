@@ -1,9 +1,10 @@
 import React from 'react'
-import { STORE_SHOP } from "../action/types";
+import { STORE_SHOP, STORE_TOKEN } from "../action/types";
 
 
 const initialState = {
-    shopOrigin: ""
+    shopOrigin: "",
+    shopToken: ""
 }
 
 export default function ( state = initialState, action) {
@@ -13,6 +14,11 @@ export default function ( state = initialState, action) {
                 ...state,
                 shopOrigin: action.payload
             }
+        case STORE_TOKEN:
+            return {
+                ...state,
+                shopToken: action.payload
+            }            
 
         default: 
             return state;

@@ -12,3 +12,4 @@ export const ADD_COMPANY = "ADD_COMPANY";
 
 // user shopify store origin 
 export const STORE_SHOP = "STORE_SHOP";
+export const STORE_TOKEN = "STORE_TOKEN";
