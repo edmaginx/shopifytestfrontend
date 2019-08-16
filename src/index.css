@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.menuButton{
+  width: auto;
+  display: inline-block;
+  text-align: right;
+}
+
+/* .Polaris-Subheading{
+  display: inline-block
+}
+
+.Polaris-Card__Section  .Polaris-Card__Section{
+display: inline-block;
+border: none;
+width: 400px;
+box-shadow: 0 1px 5px 0 rgba(0,0,0,.12);
+margin: 10px;
+} */
+
+.Polaris-Card .Polaris-Card{
+  width: 300px;
+  display: inline-block;
+  border: none;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,.12);
+  margin: 10px;
+}

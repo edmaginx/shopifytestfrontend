@@ -1,4 +1,4 @@
-import { ADD_COMPANY } from './types';
+import { ADD_COMPANY, GET_COMPANIES, DELETE_COMPANY } from './types';
 import axios from 'axios';
 
 
@@ -10,6 +10,7 @@ export function addCompany(companyData, store_hash){
         function (dispatch)  {
             axios.post(`${process.env.REACT_APP_API_GATEWAY_URL}/core/${store_hash}/addCompany`, 
             {
+                store_hash: "silk-jc",
                 data:JSON.stringify(companyData)
             },
             {
@@ -33,7 +34,65 @@ export function addCompany(companyData, store_hash){
     });
 }
 
+export function getCompanies(store_hash){
+    return (
+        function (dispatch)  {
+            axios.get(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/getCompanies`, 
+            {
+                params: 
+                {
+                    "store_hash": store_hash
+                },
+                headers: 
+                {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
+                }
+            })
+            .then (res => {
+                console.log(res);
+                if(res.status === 200){
+                    console.log(res.data)
+                    dispatch({
+                        type: GET_COMPANIES,
+                        payload: res.data // send an array of sales rep objects to the reducer, and reducer will update state
+                    });
+                }
 
-// TODO: missing api endpoints for fetching all companies
+            })
+            .catch(console.log);
+    });
+}
 
 
+export function deleteCompany(store_hash, id){
+    return (
+        function (dispatch)  {
+            axios.delete(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/delCompany`, 
+            {
+                params: 
+                {
+                    "store_hash": store_hash,
+                    "company_id": id
+                },
+                headers: 
+                {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
+                }
+            })
+            .then (res => {
+                if(res.status === 200){
+                    console.log(res.data)
+                    dispatch({
+                        type: DELETE_COMPANY,
+                        payload: res.data // send an array of sales rep objects to the reducer, and reducer will update state
+                    });
+                }
+
+            })
+            .catch(console.log);
+    });
+}

@@ -1,25 +1,32 @@
 import React from "react";
+import { connect } from "react-redux";
+import { deleteCompany } from '../../action/companyAction';
 import {
     Subheading,
     Badge,
     Card,
     Popover,
     ActionList,
-    Button
+    Button,
+    List
 } from '@shopify/polaris';
-
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import '../../index.css';
 
 class CompanyCard extends React.Component{
 
     constructor(props){
         super(props)
+        console.log(props);
         this.state = {
             name: props.name,
             catalog: props.catalog,
             status: props.status,
+            id: props.id,
             active: false
         }
+        this.deleteCompany = this.deleteCompany.bind(this);
     }
 
     handleClick(){
@@ -31,10 +38,16 @@ class CompanyCard extends React.Component{
             active: !prevState.active
         }));
     }
+
+    deleteCompany(id){
+
+    }
     
     renderMenu(){
         const activator = (
-            <Button onClick={this.togglePopover.bind(this)}>More actions</Button>
+            <IconButton onClick={this.togglePopover.bind(this)}>
+                <MoreVertIcon />
+            </IconButton>
         );
         return (
             <div>
@@ -46,29 +59,34 @@ class CompanyCard extends React.Component{
                 <ActionList
                     items={[
                     {
-                        content: 'Import file',
+                        content: 'EDIT',
                         onAction: () => {
-                        console.log('File imported');
                         },
                     },
                     {
-                        content: 'Export file',
+                        content: 'DELETE',
                         onAction: () => {
-                        console.log('File exported');
+                            console.log(this.state.id)
+                            return this.props.deleteCompany('silk-jc', this.state.id);
                         },
                     },
                     ]}
                 />
                 </Popover>
+
             </div>
         );
     }
 
-    render(){
+    render(){        
         return(
-            <div>
+            <Card
+                title={this.state.name}
+                actions = {[{content: this.renderMenu()}]}>
                 <Card.Section>
-                    <Subheading>{this.state.name}</Subheading>  
+                    <Subheading>
+                        {this.state.name}
+                    </Subheading>  
                     <p>{this.state.catalog}</p>
                     {
                         this.state.status == 0 &&
@@ -78,11 +96,16 @@ class CompanyCard extends React.Component{
                         this.state.status == 1 &&
                         <Badge status="success">Approved</Badge>                
                     }
-                    {this.renderMenu()}
                 </Card.Section>
-            </div>
+            </Card>
+
         );
     }
 }
 
-export default CompanyCard;
+
+const mapStateToProps = state => ({
+
+})
+
+export default connect(mapStateToProps, { deleteCompany })(CompanyCard);

@@ -1,11 +1,4 @@
-import React, {
-    Component
-} from "react";
-// import { Redirect } from 'react-router-dom';
-import {
-    BrowserRouter as Router,
-    Route
-} from "react-router-dom";
+import React, { Component } from "react";
 import axios from 'axios';
 import queryString from 'query-string';
 import { connect } from "react-redux";
@@ -24,7 +17,8 @@ class RequestToken extends Component {
 
     render() {
         const app = createApp({
-            apiKey: `2e222e5fc427a57adc4910868561c7a9`,
+            // apiKey: `${process.env.REACT_APP_SHOPIFY_APP_API_KEY}`,
+            apiKey: "2e222e5fc427a57adc4910868561c7a9",
             // shopOrigin: "edwaleong-0.myshopify.com",
             shopOrigin: localStorage.getItem('shopOrigin'),
             forceRedirect: true

@@ -1,4 +1,4 @@
-import { ADD_COMPANY } from '../action/types';
+import { ADD_COMPANY, GET_COMPANIES, DELETE_COMPANY } from '../action/types';
 
 const initialState = {
     companies: [],
@@ -14,6 +14,17 @@ export default function (state = initialState, action) {
                 ...state,
                 customers: action.companyData
             };
+        case GET_COMPANIES:
+            console.log(action.type);
+            console.log(action.payload);
+            return {
+                ...state,
+                companies: action.payload
+            }
+        case DELETE_COMPANY:
+            console.log(action.type);
+            console.log(action.payload);
+            return state;
         default:
             return state;
     }

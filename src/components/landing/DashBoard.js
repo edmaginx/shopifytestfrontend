@@ -6,7 +6,7 @@ import SalesRepList from "../salesrep/SalesRepList";
 class DashBoard extends Component {
 
     state = {
-        selected: 2
+        selected: 0
     }
     
     handleTabChange(selectedTabIndex){
