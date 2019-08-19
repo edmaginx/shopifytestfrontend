@@ -8,6 +8,7 @@ import {
 } from '@shopify/polaris';
 import { addCompany, getCompanies } from '../../action/companyAction';
 import CompanyCard from "./CompanyCard";
+import { handleTextFieldChange, handletoggleChange } from '../../helper/helper';
 
 
 /* 
@@ -37,6 +38,9 @@ class CompanyCardContainer extends React.Component{
         this.fetchCompanies();
         this.populateCompanies = this.populateCompanies.bind(this);
         this.statusHandleChange = this.statusHandleChange.bind(this);
+        this.handleTextFieldChange = handleTextFieldChange.bind(this);
+        this.handletoggleChange = handletoggleChange.bind(this);
+        this.toggleIsActive = this.toggleIsActive.bind(this);
     }
 
     statusHandleChange(value){
@@ -79,17 +83,10 @@ class CompanyCardContainer extends React.Component{
         );
     };
 
-    cancelAddCompany() {
-        this.setState({
-            active: false,
-        });
+    toggleIsActive() {
+        this.handletoggleChange("active", this.state.active);
     }
 
-    displayAddCompany() {
-        this.setState({
-            active: true,
-        });
-    }
 
     populateCompanies(){
         var Companies = this.props.companies.map((company) => {
@@ -119,23 +116,26 @@ class CompanyCardContainer extends React.Component{
         return(
             <div>
                 <div>
-                    <button onClick={this.displayAddCompany.bind(this)}>
+                    <button 
+                    name = "active"
+                    value = {this.state.active}
+                    onClick={this.toggleIsActive}>
                         Add a company
                     </button>
                 </div>
 
                 <Modal
                 open={this.state.active}
-                onClose={this.cancelAddCompany.bind(this)}
+                onClose = {this.toggleIsActive}
                 title="Create New Company"
                 primaryAction={{
                     content: 'Add Company',
-                    onAction: this.addCompany.bind(this),
+                    onAction: this.toggleIsActive
                 }}
                 secondaryActions={[
                     {
                     content: 'Cancel',
-                    onAction: this.cancelAddCompany.bind(this),
+                    onAction: this.toggleIsActive,
                     },
                 ]}
                 >
@@ -149,12 +149,12 @@ class CompanyCardContainer extends React.Component{
                         id = "Name"
                         label = "Company Name"
                         value = {this.state.newCompany.name}
-                        onChange = {this.handleChange.bind(this)} />
+                        onChange = {this.handleTextFieldChange} />
                     <TextField
                         id = "Catalog"
                         label = "Company Catalog"
                         value = {this.state.newCompany.catalog}
-                        onChange = {this.handleChange.bind(this)} />
+                        onChange = {this.handleTextFieldChange} />
                     <ChoiceList
                         id = "Status"
                         title={'Company Status'}

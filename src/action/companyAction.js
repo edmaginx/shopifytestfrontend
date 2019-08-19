@@ -1,6 +1,6 @@
 import { ADD_COMPANY, GET_COMPANIES, DELETE_COMPANY } from './types';
 import axios from 'axios';
-
+import {} from '../helper/helper';
 
 // This method adds a company entry in the DynamoDB using api
 // @param companyData: companyData Object, for example: {'name':'google', 'catalog':'tech', status:'1'}
