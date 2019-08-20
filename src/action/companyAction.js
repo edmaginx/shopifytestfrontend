@@ -21,9 +21,10 @@ export function addCompany(companyData, store_hash){
                 },
             }).then (res => {
                 if(res.status === 200){
+                    // console.log(res.data);
                     dispatch({
                         type: ADD_COMPANY,
-                        companyData: companyData
+                        payload: res.data
                     });
                 }
                 else{
@@ -77,7 +78,7 @@ export function deleteCompany(store_hash, id){
                 "company_id": id
             },
             {
-                headers: 
+                headers:
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
@@ -89,7 +90,7 @@ export function deleteCompany(store_hash, id){
                     console.log(res.data)
                     dispatch({
                         type: DELETE_COMPANY,
-                        payload: res.data // send an array of sales rep objects to the reducer, and reducer will update state
+                        company_id: id
                     });
                 }
 

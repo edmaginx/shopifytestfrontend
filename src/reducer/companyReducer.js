@@ -8,12 +8,9 @@ const initialState = {
 export default function (state = initialState, action) {
     switch(action.type) {
         case ADD_COMPANY:
-            console.log(action.type);
-            
-            console.log(action.companyData);
             return {
                 ...state,
-                customers: action.companyData
+                companies: [ ...state.companies, action.payload ]
             };
         case GET_COMPANIES:
             console.log(action.type);
@@ -28,9 +25,12 @@ export default function (state = initialState, action) {
                 companies: action.payload
             }
         case DELETE_COMPANY:
-            console.log(action.type);
-            console.log(action.payload);
-            return state;
+            // console.log(action.type);
+            // console.log(action.payload);
+            return {
+                ...state,
+                companies: state.companies.filter(company => company.company_id !== action.company_id)
+            };
 
         case UPDATE_COMPANY:
             console.log(action.type);

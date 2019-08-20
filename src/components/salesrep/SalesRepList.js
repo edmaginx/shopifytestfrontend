@@ -1,14 +1,14 @@
 import React from 'react';
-import SalesRep from './SalesRep';
 import { connect } from "react-redux";
-import { getSalesRep, addSalesRep } from '../../action/salesRepAction'
+import { getUsers, addSalesRep } from '../../action/salesRepAction'
 import {
     Page,
     Card,
     DataTable,
     Modal,
-    TextContainer,
-    TextField
+    TextField,
+    OptionList,
+    ResourceList
 } from '@shopify/polaris';
 
 class SalesRepList extends React.Component{
@@ -20,13 +20,13 @@ class SalesRepList extends React.Component{
             newSalesRep:{
                     "firstname": 'First Name',
                     "lastname": 'Last Name',
-                    "email": 'Email Address'
+                    "email": 'Email Address',
+                    "phoneNumber": "Phone Number",
             },
-            addForm: false
+            companySelected: [],
+            addForm: false,
         };
-        props.getSalesRep();
-
-
+        props.getUsers(props.store_hash);
 
         // Bind functions
         this.populateRow = this.populateRow.bind(this);
@@ -48,7 +48,11 @@ class SalesRepList extends React.Component{
     }
 
     addSalesRep(){
-        this.props.addSalesRep(this.state.newSalesRep);
+        this.props.addSalesRep(
+            this.state.newSalesRep, 
+            this.props.store_hash,
+            this.state.companySelected[0],
+            this.state.companySelected);
         this.setState({
             addForm: false,
         });
@@ -73,15 +77,26 @@ class SalesRepList extends React.Component{
     }
 
     populateRow(){
-        var Reps = this.props.salesRepresentative.map((salesRep) => {
+        var Reps = this.props.salesRepList.map((salesRep) => {
             if(typeof(salesRep.data) === 'string'){
                 var data = JSON.parse(salesRep.data);
             }else{
                 var data = salesRep.data;
             }
             let name = `${data.firstname} ${data.lastname}`;
-            let companyName = "something"; // todo fetch this salereps company name
-            let email = data.email; // todo fetch email
+            let email = data.email; 
+            
+            let company = this.props.companies.filter((company) => {
+                var idList = Array();
+                for(let i = 0; i < salesRep.company_ids.length; i ++){
+                    idList.push(salesRep.company_ids[i]);
+                }
+                console.log(idList);
+                return idList.includes(company.company_id);
+            });
+            // update companyname with actual company list, expandable
+            let companyJSON = JSON.parse(company[0].data);
+            let companyName = companyJSON.name;
             return(Array(name, companyName, email));    
         });
         return Reps;
@@ -93,8 +108,6 @@ class SalesRepList extends React.Component{
                 <button onClick={this.displayAddSalesRep}>
                     Add Sales Representative
                 </button>
-
-
 
                 <Page title="Overview">
                     <Card>
@@ -109,7 +122,9 @@ class SalesRepList extends React.Component{
                             'Company Name',
                             'Email'
                         ]}
-                        rows={this.populateRow()}
+                        rows={
+                            this.populateRow()
+                        }
                         sortable={[false, false, false]}
                         defaultSortDirection="descending"
                         />
@@ -148,6 +163,24 @@ class SalesRepList extends React.Component{
                         label = "Email"
                         value = {this.state.newSalesRep.email}
                         onChange = {this.handleChange.bind(this)} />
+                    <Card>
+                        <OptionList
+                            title="Manage sales channels availability"
+                            onChange={(updated) => {
+                                this.setState({companySelected: updated});
+                            }}
+                            options={
+                                this.props.companies.map((company) => {
+                                    return {
+                                        value: company.company_id,
+                                        label: JSON.parse(company.data).name
+                                    }
+                                })
+                                }
+                            selected={this.state.companySelected}
+                            allowMultiple
+                            />
+                    </Card>
                 </Modal.Section>
                 </Modal>
             </div>
@@ -157,10 +190,12 @@ class SalesRepList extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    salesRepresentative: state.salesRepresentative.salesReps,
-    salesRepresentativeObject: state.salesRepresentative.salesRep
+    salesRepList: state.salesRepresentative.salesReps,
+    salesRep: state.salesRepresentative.salesRep,
+    companies: state.companyState.companies,
+    store_hash: state.landingState.shopOrigin
 })
 
-export default connect(mapStateToProps, { getSalesRep, addSalesRep })(SalesRepList);
+export default connect(mapStateToProps, { getUsers, addSalesRep })(SalesRepList);
 
 

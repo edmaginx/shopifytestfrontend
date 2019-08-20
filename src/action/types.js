@@ -5,6 +5,7 @@ export const ADD_CUSTOMERS = "ADD_CUSTOMERS";
 
 // Sales Rep related actions
 export const GET_SALESREP = "GET_SALESREP";
+export const GET_ADMINS = "GET_ADMINS";
 export const ADD_SALESREP = "ADD_SALESREP";
 
 // Company related actions

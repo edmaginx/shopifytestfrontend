@@ -28,6 +28,7 @@ class CompanyCard extends React.Component{
         }
         console.log(this.state);
         this.deleteCompany = deleteCompany.bind(this);
+        this.togglePopover = this.togglePopover.bind(this);
         // this.updateCompany = updateCompany.bind(this);
     }
 
@@ -44,7 +45,7 @@ class CompanyCard extends React.Component{
     
     renderMenu(){
         const activator = (
-            <IconButton onClick={this.togglePopover.bind(this)}>
+            <IconButton onClick={this.togglePopover}>
                 <MoreVertIcon />
             </IconButton>
         );
@@ -53,7 +54,7 @@ class CompanyCard extends React.Component{
                 <Popover
                 active={this.state.active}
                 activator={activator}
-                onClose={() => this.togglePopover}
+                onClose={this.togglePopover}
                 >
                 <ActionList
                     items={[
