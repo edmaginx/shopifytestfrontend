@@ -6,7 +6,7 @@ import {
     TextField,
     ChoiceList
 } from '@shopify/polaris';
-import { addCompany, getCompanies } from '../../action/companyAction';
+import { addCompany, getCompanies, updateCompany } from '../../action/companyAction';
 import CompanyCard from "./CompanyCard";
 import { handleTextFieldChange, handletoggleChange } from '../../helper/helper';
 
@@ -29,7 +29,7 @@ class CompanyCardContainer extends React.Component{
             newCompany: {
                 name: "Please type in the name for the company",
                 catalog: "what catalog does this company belong to",
-                status: "Not Yet Approved"
+                status: "1"
             }, 
             companyCount: 0,
             selected: ['hidden']
@@ -41,9 +41,12 @@ class CompanyCardContainer extends React.Component{
         this.handleTextFieldChange = handleTextFieldChange.bind(this);
         this.handletoggleChange = handletoggleChange.bind(this);
         this.toggleIsActive = this.toggleIsActive.bind(this);
+        // this.updateCompany = updateCompany.bind(this);
+        // this.displayAddCompany = this.displayAddCompany.bind(this);
     }
 
     statusHandleChange(value){
+        console.log(value);
         this.setState({selected: value});
     }
 
@@ -57,6 +60,7 @@ class CompanyCardContainer extends React.Component{
     addCompany(){
         console.log("Adding companies" + this.state.newCompany);
         this.props.addCompany(this.state.newCompany, "edwaleong-0");
+        this.cancelAddCompany();
     }
 
     removeCompany(){
@@ -76,7 +80,7 @@ class CompanyCardContainer extends React.Component{
                 else if(id == 'Catalog') newCompany.catalog = value;
                 else {
                     newCompany.status = value;
-                    this.statusHandleChange(value);
+                    // this.statusHandleChange(value);
                 }
                 return {newCompany};
             }
@@ -113,13 +117,15 @@ class CompanyCardContainer extends React.Component{
 
     render(){
         const {selected} = this.state;
+        console.log(selected);
         return(
-            <div>
+            <div className="company-list">
                 <div>
                     <button 
                     name = "active"
                     value = {this.state.active}
                     onClick={this.toggleIsActive}>
+                    {/* <button onClick={this.displayAddCompany}> */}
                         Add a company
                     </button>
                 </div>
@@ -162,7 +168,7 @@ class CompanyCardContainer extends React.Component{
                             {label: 'Approved', value: '1'},
                             {label: 'Not Yet Approved', value: '0'},
                         ]}
-                        selected={selected}
+                        selected={this.state.newCompany.status}
                         onChange={this.handleChange.bind(this)}
                         />
                 </Modal.Section>

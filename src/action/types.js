@@ -5,12 +5,14 @@ export const ADD_CUSTOMERS = "ADD_CUSTOMERS";
 
 // Sales Rep related actions
 export const GET_SALESREP = "GET_SALESREP";
+export const GET_ADMINS = "GET_ADMINS";
 export const ADD_SALESREP = "ADD_SALESREP";
 
 // Company related actions
 export const ADD_COMPANY = "ADD_COMPANY";
 export const GET_COMPANIES = "GET_COMPANIES";
 export const DELETE_COMPANY = "DELETE_COMPANY";
+export const UPDATE_COMPANY = "UPDATE_COMPANY";
 
 // user shopify store origin 
 export const STORE_SHOP = "STORE_SHOP";
