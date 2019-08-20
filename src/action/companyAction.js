@@ -1,4 +1,4 @@
-import { ADD_COMPANY, GET_COMPANIES, DELETE_COMPANY } from './types';
+import { ADD_COMPANY, GET_COMPANIES, DELETE_COMPANY, UPDATE_COMPANY } from './types';
 import axios from 'axios';
 import JSONbig from 'json-bigint';
 import BigInt from "big-integer";
@@ -100,7 +100,6 @@ export function deleteCompany(store_hash, id){
 }
 
 export function updateCompany(store_hash, id, companyData){
-    console.log('asdf');
     return (
         function(dispatch){
             console.log("upadting");
@@ -119,15 +118,16 @@ export function updateCompany(store_hash, id, companyData){
                     },
                 }).then (res => {
                     console.log(res);
-                    // if(res.status === 200){
-                    //     dispatch({
-                    //         type: ADD_COMPANY,
-                    //         companyData: companyData
-                    //     });
-                    // }
-                    // else{
-                    //     console.log(res);
-                    // }
+                    if(res.status === 200){
+                        dispatch({
+                            type: UPDATE_COMPANY,
+                            company_id: id, 
+                            payload: res.data.Attributes.data
+                        });
+                    }
+                    else{
+                        console.log(res);
+                    }
                 })
                 .catch(console.log);
         }

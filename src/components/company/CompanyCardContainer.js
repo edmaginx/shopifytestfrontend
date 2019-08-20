@@ -28,7 +28,7 @@ class CompanyCardContainer extends React.Component{
             newCompany: {
                 name: "Please type in the name for the company",
                 catalog: "what catalog does this company belong to",
-                status: "Not Yet Approved"
+                status: "1"
             }, 
             companyCount: 0,
             selected: ['hidden']
@@ -38,9 +38,11 @@ class CompanyCardContainer extends React.Component{
         this.populateCompanies = this.populateCompanies.bind(this);
         this.statusHandleChange = this.statusHandleChange.bind(this);
         this.updateCompany = updateCompany.bind(this);
+        this.displayAddCompany = this.displayAddCompany.bind(this);
     }
 
     statusHandleChange(value){
+        console.log(value);
         this.setState({selected: value});
     }
 
@@ -51,7 +53,7 @@ class CompanyCardContainer extends React.Component{
         this.props.getCompanies(store_hash);
     }
 
-    addCompany(callback){
+    addCompany(){
         console.log("Adding companies" + this.state.newCompany);
         this.props.addCompany(this.state.newCompany, "edwaleong-0");
         this.cancelAddCompany();
@@ -74,7 +76,7 @@ class CompanyCardContainer extends React.Component{
                 else if(id == 'Catalog') newCompany.catalog = value;
                 else {
                     newCompany.status = value;
-                    this.statusHandleChange(value);
+                    // this.statusHandleChange(value);
                 }
                 return {newCompany};
             }
@@ -118,10 +120,11 @@ class CompanyCardContainer extends React.Component{
 
     render(){
         const {selected} = this.state;
+        console.log(selected);
         return(
             <div className="company-list">
                 <div>
-                    <button onClick={this.displayAddCompany.bind(this)}>
+                    <button onClick={this.displayAddCompany}>
                         Add a company
                     </button>
                 </div>
@@ -164,7 +167,7 @@ class CompanyCardContainer extends React.Component{
                             {label: 'Approved', value: '1'},
                             {label: 'Not Yet Approved', value: '0'},
                         ]}
-                        selected={selected}
+                        selected={this.state.newCompany.status}
                         onChange={this.handleChange.bind(this)}
                         />
                 </Modal.Section>

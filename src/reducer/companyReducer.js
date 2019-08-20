@@ -13,29 +13,23 @@ export default function (state = initialState, action) {
                 companies: [ ...state.companies, action.payload ]
             };
         case GET_COMPANIES:
-            console.log(action.type);
-            console.log(action.payload);
-
-            // for (var i = 0; i < action.payload.length; i++){
-            //     action.payload[i].company_id = action.payload[i].company_id.toString();
-            // }
-
             return {
                 ...state,
                 companies: action.payload
             }
         case DELETE_COMPANY:
-            // console.log(action.type);
-            // console.log(action.payload);
             return {
                 ...state,
                 companies: state.companies.filter(company => company.company_id !== action.company_id)
             };
 
         case UPDATE_COMPANY:
-            console.log(action.type);
-            console.log(action.payload);
-            // !todo return 
+            return {
+                ...state,
+                companies: state.companies.map(company => (
+                    company.company_id === action.company_id ? {...company, data:action.payload} : company
+                ))
+            }
         default:
             return state;
     }

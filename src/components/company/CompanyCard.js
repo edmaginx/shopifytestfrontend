@@ -7,12 +7,15 @@ import {
     Card,
     Popover,
     ActionList,
-    Button,
-    List
+    Modal,
+    TextContainer,
+    TextField,
+    ChoiceList
 } from '@shopify/polaris';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import '../../index.css';
+import CompanyModal from './CompanyModal';
 
 class CompanyCard extends React.Component{
 
@@ -24,7 +27,13 @@ class CompanyCard extends React.Component{
             catalog: props.catalog,
             status: props.status,
             id: props.id,
-            active: false
+            active: false,
+            showModal: false,
+            updateVal: {
+                name: props.name,
+                catalog: props.catalog,
+                status: props.status,
+            }
         }
         console.log(this.state);
         this.deleteCompany = deleteCompany.bind(this);
@@ -62,12 +71,7 @@ class CompanyCard extends React.Component{
                         content: 'EDIT',
                         onAction: () => {
                             console.log(this.state.id);
-                            return this.props.updateCompany('silk-jc', this.state.id, 
-                            {
-                                "name": "Please type in the name for the company",
-                                "catalog": "what catalog does this company belong to",
-                                "status": "Not Yet Approved"                            
-                            });
+                            return this.setState({showModal: true})
                         },
                     },
                     {
@@ -87,24 +91,97 @@ class CompanyCard extends React.Component{
 
     render(){        
         return(
-            <Card
-                title={this.state.name}
-                actions = {[{content: this.renderMenu()}]}>
-                <Card.Section>
-                    <Subheading>
-                        {this.state.name}
-                    </Subheading>  
-                    <p>{this.state.catalog}</p>
+            <div>
+                <Card
+                    title={this.props.name}
+                    actions = {[{content: this.renderMenu()}]}>
+                    <Card.Section>
+                        <Subheading>
+                            {this.props.name}
+                        </Subheading>  
+                        <p>{this.props.catalog}</p>
+                        {
+                            this.props.status == 0 &&
+                            <Badge>Not approved</Badge>
+                        }
+                        {
+                            this.props.status == 1 &&
+                            <Badge status="success">Approved</Badge>                
+                        }
+                    </Card.Section>
+                </Card>
+                <Modal
+                open={this.state.showModal}
+                onClose={()=>this.setState({showModal: false})}
+                title="Edit Company"
+                primaryAction={{
+                    content: 'Submit',
+                    onAction: ()=>this.props.updateCompany(
+                        this.props.store_hash,
+                        this.props.id,
+                        this.state.updateVal
+                    )
+                }}
+                secondaryActions={[
                     {
-                        this.state.status == 0 &&
-                        <Badge>Not approved</Badge>
-                    }
-                    {
-                        this.state.status == 1 &&
-                        <Badge status="success">Approved</Badge>                
-                    }
-                </Card.Section>
-            </Card>
+                    content: 'Cancel',
+                    onAction: () => {
+                        this.setState({
+                            showModal: false
+                        })
+                    },
+                    },
+                ]}
+                >
+                <Modal.Section>
+                    <TextContainer>
+                    <p>
+                        Please type in the information for the new company
+                    </p>
+                    </TextContainer>
+                    <TextField
+                        id = "Name"
+                        label = "Company Name"
+                        value = {this.state.updateVal.name}
+                        onChange = {(value) => {
+                            this.setState({
+                                updateVal: {
+                                    ...this.state.updateVal,
+                                    name: value
+                                }
+                            })
+                        }}/>
+                    <TextField
+                        id = "Catalog"
+                        label = "Company Catalog"
+                        value = {this.state.updateVal.catalog}
+                        onChange = {(value) => {
+                            this.setState({
+                                updateVal: {
+                                    ...this.state.updateVal,
+                                    catalog: value
+                                }
+                            })
+                        }}/>
+                    <ChoiceList
+                        id = "Status"
+                        title={'Company Status'}
+                        choices={[
+                            {label: 'Approved', value: '1'},
+                            {label: 'Not Yet Approved', value: '0'},
+                        ]}
+                        selected={this.state.updateVal.status}
+                        onChange = {(value) => {
+                            this.setState({
+                                updateVal: {
+                                    ...this.state.updateVal,
+                                    status: value
+                                }
+                            })
+                        }}/>
+                </Modal.Section>
+                </Modal>
+            </div>
 
         );
     }
@@ -112,7 +189,7 @@ class CompanyCard extends React.Component{
 
 
 const mapStateToProps = state => ({
-
+    store_hash: state.landingState.shopOrigin
 })
 
 export default connect(mapStateToProps, { deleteCompany, updateCompany })(CompanyCard);
