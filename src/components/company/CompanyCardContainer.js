@@ -6,7 +6,7 @@ import {
     TextField,
     ChoiceList
 } from '@shopify/polaris';
-import { addCompany, getCompanies } from '../../action/companyAction';
+import { addCompany, getCompanies, updateCompany } from '../../action/companyAction';
 import CompanyCard from "./CompanyCard";
 
 
@@ -37,6 +37,7 @@ class CompanyCardContainer extends React.Component{
         this.fetchCompanies();
         this.populateCompanies = this.populateCompanies.bind(this);
         this.statusHandleChange = this.statusHandleChange.bind(this);
+        this.updateCompany = updateCompany.bind(this);
     }
 
     statusHandleChange(value){
@@ -50,9 +51,10 @@ class CompanyCardContainer extends React.Component{
         this.props.getCompanies(store_hash);
     }
 
-    addCompany(){
+    addCompany(callback){
         console.log("Adding companies" + this.state.newCompany);
         this.props.addCompany(this.state.newCompany, "edwaleong-0");
+        this.cancelAddCompany();
     }
 
     removeCompany(){
@@ -117,7 +119,7 @@ class CompanyCardContainer extends React.Component{
     render(){
         const {selected} = this.state;
         return(
-            <div>
+            <div className="company-list">
                 <div>
                     <button onClick={this.displayAddCompany.bind(this)}>
                         Add a company

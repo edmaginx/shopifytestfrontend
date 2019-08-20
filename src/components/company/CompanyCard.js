@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteCompany } from '../../action/companyAction';
+import { deleteCompany, updateCompany } from '../../action/companyAction';
 import {
     Subheading,
     Badge,
@@ -26,7 +26,9 @@ class CompanyCard extends React.Component{
             id: props.id,
             active: false
         }
-        this.deleteCompany = this.deleteCompany.bind(this);
+        console.log(this.state);
+        this.deleteCompany = deleteCompany.bind(this);
+        // this.updateCompany = updateCompany.bind(this);
     }
 
     handleClick(){
@@ -39,9 +41,6 @@ class CompanyCard extends React.Component{
         }));
     }
 
-    deleteCompany(id){
-
-    }
     
     renderMenu(){
         const activator = (
@@ -61,12 +60,19 @@ class CompanyCard extends React.Component{
                     {
                         content: 'EDIT',
                         onAction: () => {
+                            console.log(this.state.id);
+                            return this.props.updateCompany('silk-jc', this.state.id, 
+                            {
+                                "name": "Please type in the name for the company",
+                                "catalog": "what catalog does this company belong to",
+                                "status": "Not Yet Approved"                            
+                            });
                         },
                     },
                     {
                         content: 'DELETE',
                         onAction: () => {
-                            console.log(this.state.id)
+                            console.log(this.state.id);
                             return this.props.deleteCompany('silk-jc', this.state.id);
                         },
                     },
@@ -108,4 +114,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { deleteCompany })(CompanyCard);
+export default connect(mapStateToProps, { deleteCompany, updateCompany })(CompanyCard);

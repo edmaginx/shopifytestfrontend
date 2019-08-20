@@ -89,7 +89,7 @@ class SalesRepList extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="salesrep-list">
                 <button onClick={this.displayAddSalesRep}>
                     Add Sales Representative
                 </button>
