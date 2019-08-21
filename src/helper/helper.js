@@ -2,30 +2,50 @@ import React from 'react'
 
 
 // update state when inputing texts
-export const = function (key, value, objKey) {
-    this.setState(            
-        prevState => {
-            let newCompany = Object.assign({}, prevState.newCompany);
-            newCompany.name = "a";
-            // else if(id == 'Catalog') newCompany.catalog = "b";
-            // else {
-            //     newCompany.status = value;
-            //     this.statusHandleChange(value);
-            // }
-            return {newCompany};
-        }
-    );
+export const handleTextFieldChange = function (key, value, objKey) {
+    // if (Array.isArray(this.state.key)){
+    //     this.setState({
+    //         key: [
+    //             ...this.state.key,
+    //             value
+    //         ]
+    //     })
+    // } else {
+    //     switch(typeof(this.state.key)){
+    //         case "object":
+    //             this.setState({
+
+    //             })
+    //         case "boolean":
+
+    //         default:
+    //     }
+    // }
 }
+
+    // this.setState(            
+    //     // prevState => {
+    //     //     let newCompany = Object.assign({}, prevState.newCompany);
+    //     //     newCompany.name = "a";
+    //     //     // else if(id == 'Catalog') newCompany.catalog = "b";
+    //     //     // else {
+    //     //     //     newCompany.status = value;
+    //     //     //     this.statusHandleChange(value);
+    //     //     // }
+    //     //     return {newCompany};
+    //     // }
+    // );
+
 
 // update state when a swtich is invoke
 export const handletoggleChange = function (key, value){
-    const stateKey = key;
-    const stateVal = value;
-    this.setState({
-        [stateKey]: !stateVal
-    }, () => {
-        console.log(this.state);
-    })
+    // const stateKey = key;
+    // const stateVal = value;
+    // this.setState({
+    //     [stateKey]: !stateVal
+    // }, () => {
+    //     console.log(this.state);
+    // })
 }
 
 // add a resource entity 

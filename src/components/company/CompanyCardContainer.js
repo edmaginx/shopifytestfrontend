@@ -1,20 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
+import { addCompany, getCompanies, updateCompany } from '../../action/companyAction';
+import CompanyCard from "./CompanyCard";
 import {
     Modal,
     TextContainer,
     TextField,
     ChoiceList
 } from '@shopify/polaris';
-import { addCompany, getCompanies, updateCompany } from '../../action/companyAction';
-import CompanyCard from "./CompanyCard";
-import { handleTextFieldChange, handletoggleChange } from '../../helper/helper';
-
 
 /* 
 func: fetchCompanies()
 func: addCompany()
-func: removeCompany()
 func: handleChange()
 func: cancelAddCompany()
 func: displayAddCompany()
@@ -24,53 +21,27 @@ class CompanyCardContainer extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            companyList: [],
-            active: false,
+            showAddCompanyModal: false,
             newCompany: {
                 name: "Please type in the name for the company",
                 catalog: "what catalog does this company belong to",
                 status: "1"
-            }, 
-            companyCount: 0,
-            selected: ['hidden']
+            }        
         }
-        this.fetchCompanies = this.fetchCompanies.bind(this);
-        this.fetchCompanies();
+        props.getCompanies(props.store_hash);
         this.populateCompanies = this.populateCompanies.bind(this);
-        this.statusHandleChange = this.statusHandleChange.bind(this);
-        this.handleTextFieldChange = handleTextFieldChange.bind(this);
-        this.handletoggleChange = handletoggleChange.bind(this);
-        this.toggleIsActive = this.toggleIsActive.bind(this);
-        // this.updateCompany = updateCompany.bind(this);
-        // this.displayAddCompany = this.displayAddCompany.bind(this);
-    }
-
-    statusHandleChange(value){
-        console.log(value);
-        this.setState({selected: value});
-    }
-
-    fetchCompanies(){
-        var urlParams = new URLSearchParams(window.location.search);
-        const store_hash = urlParams.get('shop').split(".")[0];  
-        console.log("fetching companies");
-        this.props.getCompanies(store_hash);
+        this.handleTextChange = this.handleTextChange.bind(this);
+        this.toggleIsCompanyApproved = this.toggleIsCompanyApproved.bind(this);
+        this.toggleAddCompanyModal = this.toggleAddCompanyModal.bind(this);
+        this.addCompany = this.addCompany.bind(this);
     }
 
     addCompany(){
         console.log("Adding companies" + this.state.newCompany);
         this.props.addCompany(this.state.newCompany, "edwaleong-0");
-        this.cancelAddCompany();
+        this.toggleAddCompanyModal();
     }
 
-    removeCompany(){
-        // TODO: Need delete request for company
-        this.setState(prevState => ({
-            companyList: this.state.companyList, 
-            active: false, 
-            companyCount: this.state.companyCount+1
-        }));
-    }
 
     handleChange(value, id){
         this.setState(
@@ -80,15 +51,34 @@ class CompanyCardContainer extends React.Component{
                 else if(id == 'Catalog') newCompany.catalog = value;
                 else {
                     newCompany.status = value;
-                    // this.statusHandleChange(value);
                 }
                 return {newCompany};
             }
         );
     };
 
-    toggleIsActive() {
-        this.handletoggleChange("active", this.state.active);
+    toggleAddCompanyModal() {
+        this.setState({
+            showAddCompanyModal: !this.state.showAddCompanyModal
+        })
+    }
+
+    handleTextChange(value, id){
+        this.setState({
+            newCompany: {
+                ...this.state.newCompany,
+                [id]: value
+            }
+        })
+    }
+
+    toggleIsCompanyApproved(){
+        this.setState({
+            newCompany: {
+                ...this.state.newCompany,
+                status:(this.state.newCompany.status === "1") ? '0' : '1'
+            }
+        })
     }
 
 
@@ -100,9 +90,6 @@ class CompanyCardContainer extends React.Component{
                 var data = company.data;
             }
 
-            let name = data.name;
-            let catalog = data.catalog;
-            let status = data.status;
             let array = Array();
             array['name'] = data.name;
             array['catalog'] = data.catalog;
@@ -116,32 +103,28 @@ class CompanyCardContainer extends React.Component{
     }
 
     render(){
-        const {selected} = this.state;
-        console.log(selected);
         return(
             <div className="company-list">
                 <div>
                     <button 
-                    name = "active"
-                    value = {this.state.active}
-                    onClick={this.toggleIsActive}>
-                    {/* <button onClick={this.displayAddCompany}> */}
+                    name = "addCompany"
+                    onClick={this.toggleAddCompanyModal}>
                         Add a company
                     </button>
                 </div>
 
                 <Modal
-                open={this.state.active}
-                onClose = {this.toggleIsActive}
-                title="Create New Company"
+                open={this.state.showAddCompanyModal}
+                onClose = {this.toggleAddCompanyModal}
+                title="Create A New Company"
                 primaryAction={{
                     content: 'Add Company',
-                    onAction: this.toggleIsActive
+                    onAction: this.addCompany
                 }}
                 secondaryActions={[
                     {
                     content: 'Cancel',
-                    onAction: this.toggleIsActive,
+                    onAction: this.toggleAddCompanyModal,
                     },
                 ]}
                 >
@@ -152,24 +135,24 @@ class CompanyCardContainer extends React.Component{
                     </p>
                     </TextContainer>
                     <TextField
-                        id = "Name"
+                        id = "name"
                         label = "Company Name"
                         value = {this.state.newCompany.name}
-                        onChange = {this.handleTextFieldChange} />
+                        onChange = {this.handleTextChange} />
                     <TextField
-                        id = "Catalog"
+                        id = "catalog"
                         label = "Company Catalog"
                         value = {this.state.newCompany.catalog}
-                        onChange = {this.handleTextFieldChange} />
+                        onChange = {this.handleTextChange} />
                     <ChoiceList
-                        id = "Status"
+                        id = "status"
                         title={'Company Status'}
                         choices={[
                             {label: 'Approved', value: '1'},
                             {label: 'Not Yet Approved', value: '0'},
                         ]}
                         selected={this.state.newCompany.status}
-                        onChange={this.handleChange.bind(this)}
+                        onChange={this.toggleIsCompanyApproved}
                         />
                 </Modal.Section>
                 </Modal>
@@ -192,7 +175,7 @@ class CompanyCardContainer extends React.Component{
 
 const mapStateToProps = state => ({
     company: state.companyState.company, 
-    shopOrigin: state.landingState.shopOrigin,
+    store_hash: state.landingState.shopOrigin,
     companies: state.companyState.companies
 })
 
