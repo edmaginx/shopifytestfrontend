@@ -6,11 +6,12 @@ import BigInt from "big-integer";
 // @param companyData: companyData Object, for example: {'name':'google', 'catalog':'tech', status:'1'}
 // @param store_hash: the store_hash for the shopify store. For example: edwaleong-0
 export function addCompany(companyData, store_hash){
+    console.log("company store hash: " + store_hash);
     return (
         function (dispatch)  {
-            axios.post(`${process.env.REACT_APP_API_GATEWAY_URL}/core/${store_hash}/addCompany`, 
+            axios.post(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/addCompany`,
             {
-                store_hash: "silk-jc",
+                store_hash: store_hash,
                 data:JSON.stringify(companyData)
             },
             {
@@ -38,13 +39,13 @@ export function addCompany(companyData, store_hash){
 export function getCompanies(store_hash){
     return (
         function (dispatch)  {
-            axios.get(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/getCompanies`, 
+            axios.get(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/getCompanies`,
             {
-                params: 
+                params:
                 {
                     "store_hash": store_hash
                 },
-                headers: 
+                headers:
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
@@ -72,7 +73,7 @@ export function deleteCompany(store_hash, id){
     return (
         function (dispatch)  {
             console.log(typeof(id));
-            axios.post(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/delCompany`, 
+            axios.post(`${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/delCompany`,
             {
                 "store_hash": store_hash,
                 "company_id": id
@@ -104,7 +105,7 @@ export function updateCompany(store_hash, id, companyData){
         function(dispatch){
             console.log("upadting");
             axios.post(
-                `${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/updateCompany`, 
+                `${process.env.REACT_APP_API_GATEWAY_URL}/core/edwaleong-0/updateCompany`,
                 {
                     store_hash: store_hash,
                     company_id:id,
@@ -121,7 +122,7 @@ export function updateCompany(store_hash, id, companyData){
                     if(res.status === 200){
                         dispatch({
                             type: UPDATE_COMPANY,
-                            company_id: id, 
+                            company_id: id,
                             payload: res.data.Attributes.data
                         });
                     }

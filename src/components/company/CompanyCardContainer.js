@@ -9,7 +9,7 @@ import {
     ChoiceList
 } from '@shopify/polaris';
 
-/* 
+/*
 func: fetchCompanies()
 func: addCompany()
 func: handleChange()
@@ -26,7 +26,7 @@ class CompanyCardContainer extends React.Component{
                 name: "Please type in the name for the company",
                 catalog: "what catalog does this company belong to",
                 status: "1"
-            }        
+            }
         }
         props.getCompanies(props.store_hash);
         this.populateCompanies = this.populateCompanies.bind(this);
@@ -37,8 +37,8 @@ class CompanyCardContainer extends React.Component{
     }
 
     addCompany(){
-        console.log("Adding companies" + this.state.newCompany);
-        this.props.addCompany(this.state.newCompany, "edwaleong-0");
+        console.log("Adding companies" + this.props.store_hash);
+        this.props.addCompany(this.state.newCompany, this.props.store_hash);
         this.toggleAddCompanyModal();
     }
 
@@ -106,7 +106,7 @@ class CompanyCardContainer extends React.Component{
         return(
             <div className="company-list">
                 <div>
-                    <button 
+                    <button
                     name = "addCompany"
                     onClick={this.toggleAddCompanyModal}>
                         Add a company
@@ -157,12 +157,12 @@ class CompanyCardContainer extends React.Component{
                 </Modal.Section>
                 </Modal>
                 {
-                    this.populateCompanies().map((company) => 
-                        <CompanyCard  
+                    this.populateCompanies().map((company) =>
+                        <CompanyCard
                             key = {company.id}
                             name = {company.name}
                             catalog = {company.catalog}
-                            status = {company.status} 
+                            status = {company.status}
                             id = {company.id}
                         />
                     )
@@ -174,7 +174,7 @@ class CompanyCardContainer extends React.Component{
 
 
 const mapStateToProps = state => ({
-    company: state.companyState.company, 
+    company: state.companyState.company,
     store_hash: state.landingState.shopOrigin,
     companies: state.companyState.companies
 })

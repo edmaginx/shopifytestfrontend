@@ -11,9 +11,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, initialState, composeEnhancers(
     applyMiddleware(...middleware)
     ));
-    
+
 let urlParams = new URLSearchParams(window.location.search);
-const store_hash = urlParams.get('shop').split(".")[0];  
+const store_hash = urlParams.get('shop').split(".")[0];
 // console.log(store_hash);
 store.dispatch({
     type: STORE_SHOP,
@@ -21,4 +21,3 @@ store.dispatch({
 });
 
 export default store;
-
