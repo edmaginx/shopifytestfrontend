@@ -8,13 +8,13 @@ class DashBoard extends Component {
     state = {
         selected: 0
     }
-    
+
     handleTabChange(selectedTabIndex){
         this.setState({
             selected: selectedTabIndex
         });
     }
-    
+
     render() {
         const tabs = [
             {
@@ -52,7 +52,7 @@ class DashBoard extends Component {
                     this.state.selected == 0 &&
                     <div>
                         <CompanyCardContainer />
-                    </div>                
+                    </div>
                 }
                 {
                     this.state.selected == 1 &&
@@ -69,12 +69,12 @@ class DashBoard extends Component {
                     <div>
                       <p>forth {this.state.selected} selected</p>
                     </div>
-                    
+
                 }
               </Card.Section>
             </Card>
           </div>
-        </AppProvider> 
+        </AppProvider>
         )
     }
 }

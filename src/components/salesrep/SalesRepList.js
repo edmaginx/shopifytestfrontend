@@ -10,6 +10,7 @@ import {
     OptionList,
     ResourceList
 } from '@shopify/polaris';
+import SalesRep from './SalesRep';
 
 class SalesRepList extends React.Component{
 
@@ -95,11 +96,52 @@ class SalesRepList extends React.Component{
                 return idList.includes(company.company_id);
             });
             // update companyname with actual company list, expandable
-            let companyJSON = JSON.parse(company[0].data);
-            let companyName = companyJSON.name;
-            return(Array(name, companyName, email));    
+            if (company.length>0){
+                let companyJSON = JSON.parse(company[0].data);
+                let companyName = companyJSON.name;
+                return(Array(name, companyName, email));
+            }else{
+                let companyName = "Not assigned any company yet";
+                return (Array(name, companyName, email));
+            }
+  
         });
         return Reps;
+    }
+
+    formatSalesRep(salesRep){
+        console.log(salesRep);
+        if(typeof(salesRep.data) === 'string'){
+            var data = JSON.parse(salesRep.data);
+        }else{
+            var data = salesRep.data;
+        }
+        let name = `${data.firstname} ${data.lastname}`;
+        let email = data.email; 
+        let company = this.props.companies.filter((company) => {
+            var idList = Array();
+            for(let i = 0; i < salesRep.company_ids.length; i ++){
+                idList.push(salesRep.company_ids[i]);
+            }
+            return idList.includes(company.company_id);
+        });
+        // todo update companyname with actual company list, expandable
+        if (company.length>0){
+            let companyJSON = JSON.parse(company[0].data);
+            let companyName = companyJSON.name;
+            return({
+                name:name, 
+                companyName: companyName,
+                email: email
+            });
+        }else{
+            let companyName = "Not assigned any company yet";
+            return({
+                name:name, 
+                companyName: companyName,
+                email: email
+            });
+        }
     }
 
     render(){
@@ -109,7 +151,7 @@ class SalesRepList extends React.Component{
                     Add Sales Representative
                 </button>
 
-                <Page title="Overview">
+                {/* <Page title="Overview">
                     <Card>
                         <DataTable
                         columnContentTypes={[
@@ -128,8 +170,21 @@ class SalesRepList extends React.Component{
                         sortable={[false, false, false]}
                         defaultSortDirection="descending"
                         />
+                        <div>asdfadf</div>
                     </Card>
-                </Page>
+                </Page> */}
+                <table className = "salesRepTable">
+                    <thead>
+                        <th></th>
+                        <th>Sales Rep Name</th>
+                        <th>Company Name</th>
+                        <th>Email</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {this.props.salesRepList.map((salesRep) => <SalesRep salesRep = {salesRep} />)}
+                    </tbody>
+                </table>
 
 
                 <Modal
@@ -191,7 +246,6 @@ class SalesRepList extends React.Component{
 
 const mapStateToProps = state => ({
     salesRepList: state.salesRepresentative.salesReps,
-    salesRep: state.salesRepresentative.salesRep,
     companies: state.companyState.companies,
     store_hash: state.landingState.shopOrigin
 })

@@ -7,6 +7,8 @@ export const ADD_CUSTOMERS = "ADD_CUSTOMERS";
 export const GET_SALESREP = "GET_SALESREP";
 export const GET_ADMINS = "GET_ADMINS";
 export const ADD_SALESREP = "ADD_SALESREP";
+export const DELETE_USER = "DELETE_USER";
+export const UPDATE_USER = "UPDATE_USER";
 
 // Company related actions
 export const ADD_COMPANY = "ADD_COMPANY";
