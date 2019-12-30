@@ -13,11 +13,14 @@ const store = createStore(rootReducer, initialState, composeEnhancers(
     ));
 
 let urlParams = new URLSearchParams(window.location.search);
-const store_hash = urlParams.get('shop').split(".")[0];
-// console.log(store_hash);
-store.dispatch({
-    type: STORE_SHOP,
-    payload: store_hash
-});
+
+if(urlParams.get('shop') !== null){
+    const store_hash = urlParams.get('shop').split(".")[0];
+    // console.log(store_hash);
+    store.dispatch({
+        type: STORE_SHOP,
+        payload: store_hash
+    });
+}
 
 export default store;

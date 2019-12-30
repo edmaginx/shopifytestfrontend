@@ -13,7 +13,8 @@ import DashBoard from "./components/landing/DashBoard"
 
 import Tmp from './components/tmp'
 import Install from "./components/landing/Install";
-
+require('dotenv').config();
+console.log(process.env.AWS_API_GATEWAY);
 class App extends Component {
   constructor(){
     super();

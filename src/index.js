@@ -6,8 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 import {Provider} from "react-redux";
 
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 // ReactDOM.render(<App />, document.getElementById('root'));

@@ -24,7 +24,7 @@ class RequestToken extends Component {
             forceRedirect: true
         });
         const redirect = Redirect.create(app);
-        const api_url = process.env.REACT_APP_API_GATEWAY_URL;
+        const api_url = process.env.AWS_API_GATEWAY;
         const token = localStorage.getItem('token');
         if (token) {
             console.log(token);
@@ -44,7 +44,7 @@ class RequestToken extends Component {
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "x-api-key": `${process.env.REACT_APP_API_GATEWAY_KEY}`
+                        "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
                     },
                 })
                 .then(res => {
