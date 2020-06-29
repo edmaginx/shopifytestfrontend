@@ -26,6 +26,7 @@ class App extends Component {
         <head>
           <link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/latest/polaris.css" />
         </head>
+        <div>testing</div>
 
 
         <Router>
