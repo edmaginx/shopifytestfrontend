@@ -1,11 +1,14 @@
-import React, {
+// import React, {
+//     Component
+// } from "react";
+import {
     Component
 } from "react";
 // import { Redirect } from 'react-router-dom';
-import {
-    BrowserRouter as Router,
-    Route
-} from "react-router-dom";
+// import {
+//     BrowserRouter as Router,
+//     Route
+// } from "react-router-dom";
 import axios from 'axios';
 import queryString from 'query-string';
 require('dotenv').config()

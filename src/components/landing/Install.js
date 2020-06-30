@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AppProvider, Page, Card, Tabs, Button} from '@shopify/polaris';
+import {AppProvider, Button} from '@shopify/polaris';
 import queryString from 'query-string';
 
 class Install extends Component {

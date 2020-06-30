@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from "react-redux";
 import {
-    Page,
+//    Page,
     Card,
-    DataTable,
+//    DataTable,
     Modal,
     TextField,
     OptionList,
-    ChoiceList
+//    ChoiceList
 } from '@shopify/polaris';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
@@ -151,16 +151,15 @@ class SalesRep extends React.Component{
         if(props.salesRep !== state.salesRep){
 
             console.log(props.salesRep);
+            var data = props.salesRep.data;
             if(typeof(props.salesRep.data) === 'string'){
-                var data = JSON.parse(props.salesRep.data);
-            }else{
-                var data = props.salesRep.data;
+                data = JSON.parse(props.salesRep.data);
             }
             let firstname = data.firstname;
             let lastname = data.lastname;
             let email = data.email;
             let company = props.companies.filter((company) => {
-                var idList = Array();
+                var idList = [];
                 for(let i = 0; i < props.salesRep.company_ids.length; i ++){
                     idList.push(props.salesRep.company_ids[i]);
                 }
@@ -169,17 +168,15 @@ class SalesRep extends React.Component{
             // todo update companyname with actual company list, expandable
 
             var salesRepInfo = {};
-
+            var companyNameArr = [];
+            var companyName = "Not assigned any company yet";
             if (company.length>0){
-              var companyNameArr = company.map((com) => JSON.parse(com.data).name);
-              var companyName = companyNameArr[0];
+              companyNameArr = company.map((com) => JSON.parse(com.data).name);
+              companyName = companyNameArr[0];
               // var companyNameArr = companisJSON.
                 //
                 // var companyJSON = JSON.parse(company[0].data);
                 // var companyNameArr = company.map((com) => JSON.parse(com))
-            }else{
-              var companyNameArr = [];
-                var companyName = "Not assigned any company yet";
             }
 
             salesRepInfo.firstname = firstname;
@@ -217,15 +214,14 @@ class SalesRep extends React.Component{
 
     populateRow(){
         console.log(this.props.salesRepEntity);
+        var data = this.props.salesRepEntity.data;
         if(typeof(this.props.salesRepEntity.data) === 'string'){
-            var data = JSON.parse(this.props.salesRepEntity.data);
-        }else{
-            var data = this.props.salesRepEntity.data;
+            data = JSON.parse(this.props.salesRepEntity.data);
         }
         let name = `${data.firstname} ${data.lastname}`;
         let email = data.email;
         let company = this.props.companies.filter((company) => {
-            var idList = Array();
+            var idList = [];
             for(let i = 0; i < this.props.salesRepEntity.company_ids.length; i ++){
                 idList.push(this.props.salesRepEntity.company_ids[i]);
             }

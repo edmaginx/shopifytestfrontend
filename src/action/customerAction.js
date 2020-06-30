@@ -1,4 +1,4 @@
-import { GET_CUSTOMERS, ADD_CUSTOMERS } from './types';
+import { GET_CUSTOMERS } from './types';
 import axios from 'axios';
 
 export function getCustomers(){

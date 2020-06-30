@@ -1,4 +1,4 @@
-import { GET_CUSTOMERS, ADD_CUSTOMERS } from '../action/types';
+import { GET_CUSTOMERS } from '../action/types';
 
 const initialState = {
     customers: [],

@@ -15,7 +15,7 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import '../../index.css';
-import CompanyModal from './CompanyModal';
+//import CompanyModal from './CompanyModal';
 
 class CompanyCard extends React.Component{
 
@@ -101,11 +101,11 @@ class CompanyCard extends React.Component{
                         </Subheading>  
                         <p>{this.props.catalog}</p>
                         {
-                            this.props.status == 0 &&
+                            this.props.status === 0 &&
                             <Badge>Not approved</Badge>
                         }
                         {
-                            this.props.status == 1 &&
+                            this.props.status === 1 &&
                             <Badge status="success">Approved</Badge>                
                         }
                     </Card.Section>

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addCompany, getCompanies, updateCompany } from '../../action/companyAction';
+import { addCompany, getCompanies } from '../../action/companyAction';
 import CompanyCard from "./CompanyCard";
 import {
     Modal,
@@ -47,8 +47,8 @@ class CompanyCardContainer extends React.Component{
         this.setState(
             prevState => {
                 let newCompany = Object.assign({}, prevState.newCompany);
-                if(id == 'Name') newCompany.name = value;
-                else if(id == 'Catalog') newCompany.catalog = value;
+                if(id === 'Name') newCompany.name = value;
+                else if(id === 'Catalog') newCompany.catalog = value;
                 else {
                     newCompany.status = value;
                 }
@@ -84,13 +84,12 @@ class CompanyCardContainer extends React.Component{
 
     populateCompanies(){
         var Companies = this.props.companies.map((company) => {
+            var data = company.data;
             if(typeof(company.data) === "string"){
-                var data  = JSON.parse(company.data);
-            }else{
-                var data = company.data;
+                 data  = JSON.parse(company.data);
             }
 
-            let array = Array();
+            let array = [];
             array['name'] = data.name;
             array['catalog'] = data.catalog;
             array['status'] = data.status;

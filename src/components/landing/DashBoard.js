@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AppProvider, Page, Card, Tabs, Button} from '@shopify/polaris';
+import {AppProvider, Card, Tabs} from '@shopify/polaris';
 import CompanyCardContainer from '../company/CompanyCardContainer';
 import SalesRepList from "../salesrep/SalesRepList";
 
@@ -49,23 +49,23 @@ class DashBoard extends Component {
               <Tabs tabs={tabs} selected={this.state.selected} onSelect={this.handleTabChange.bind(this)} />
               <Card.Section title={tabs[this.state.selected].content}>
                 {
-                    this.state.selected == 0 &&
+                    this.state.selected === 0 &&
                     <div>
                         <CompanyCardContainer />
                     </div>
                 }
                 {
-                    this.state.selected == 1 &&
+                    this.state.selected === 1 &&
                     <p>second tab {this.state.selected} selected</p>
                 }
                 {
-                    this.state.selected == 2 &&
+                    this.state.selected === 2 &&
                     <div>
                       <SalesRepList />
                     </div>
                 }
                 {
-                    this.state.selected == 3 &&
+                    this.state.selected === 3 &&
                     <div>
                       <p>forth {this.state.selected} selected</p>
                     </div>

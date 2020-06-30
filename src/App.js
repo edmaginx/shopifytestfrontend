@@ -1,4 +1,4 @@
-import React, { Component, Link } from "react";
+import React, { Component } from "react";
 
 import {
   BrowserRouter as Router,
@@ -11,14 +11,14 @@ import Landing from "./components/landing/Landing.js"
 import DashBoard from "./components/landing/DashBoard"
 
 
-import Tmp from './components/tmp'
+//import Tmp from './components/tmp'
 import Install from "./components/landing/Install";
 require('dotenv').config();
 console.log(process.env.AWS_API_GATEWAY);
 class App extends Component {
-  constructor(){
-    super();
-  }
+  // constructor(){
+  //   super();
+  // }
 
   render(){
     return (

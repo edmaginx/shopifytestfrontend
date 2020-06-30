@@ -1,4 +1,4 @@
-import React from 'react'
+//import React from 'react'
 import { STORE_SHOP, STORE_TOKEN } from './types';
 
 export function storeOrigin(storeOrigin) {

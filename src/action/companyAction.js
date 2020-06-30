@@ -1,7 +1,7 @@
 import { ADD_COMPANY, GET_COMPANIES, DELETE_COMPANY, UPDATE_COMPANY } from './types';
 import axios from 'axios';
-import JSONbig from 'json-bigint';
-import BigInt from "big-integer";
+// import JSONbig from 'json-bigint';
+// import BigInt from "big-integer";
 // This method adds a company entry in the DynamoDB using api
 // @param companyData: companyData Object, for example: {'name':'google', 'catalog':'tech', status:'1'}
 // @param store_hash: the store_hash for the shopify store. For example: edwaleong-0
