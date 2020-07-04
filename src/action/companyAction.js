@@ -9,7 +9,7 @@ export function addCompany(companyData, store_hash){
     console.log("company store hash: " + store_hash);
     return (
         function (dispatch)  {
-            axios.post(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/addCompany`,
+            axios.post(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/addCompany`,
             {
                 store_hash: store_hash,
                 data:JSON.stringify(companyData)
@@ -18,7 +18,7 @@ export function addCompany(companyData, store_hash){
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 },
             }).then (res => {
                 if(res.status === 200){
@@ -39,7 +39,7 @@ export function addCompany(companyData, store_hash){
 export function getCompanies(store_hash){
     return (
         function (dispatch)  {
-            axios.get(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/getCompanies`,
+            axios.get(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/getCompanies`,
             {
                 params:
                 {
@@ -49,7 +49,7 @@ export function getCompanies(store_hash){
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 },
                 // transformResponse: data => JSONbig.parse(data),
             })
@@ -73,7 +73,7 @@ export function deleteCompany(store_hash, id){
     return (
         function (dispatch)  {
             console.log(typeof(id));
-            axios.post(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/delCompany`,
+            axios.post(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/delCompany`,
             {
                 "store_hash": store_hash,
                 "company_id": id
@@ -83,7 +83,7 @@ export function deleteCompany(store_hash, id){
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 }
             })
             .then (res => {
@@ -105,7 +105,7 @@ export function updateCompany(store_hash, id, companyData){
         function(dispatch){
             console.log("upadting");
             axios.post(
-                `${process.env.AWS_API_GATEWAY}/core/edwaleong-0/updateCompany`,
+                `${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/updateCompany`,
                 {
                     store_hash: store_hash,
                     company_id:id,
@@ -115,7 +115,7 @@ export function updateCompany(store_hash, id, companyData){
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/x-www-form-urlencoded",
-                        "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                        "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                     },
                 }).then (res => {
                     console.log(res);

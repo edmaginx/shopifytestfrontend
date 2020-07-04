@@ -18,20 +18,21 @@ class CreatePermissionUrl extends Component {
     
     render() {
         const values = queryString.parse(this.props.location.search);
-        console.log(values);
+        //console.log(values);
+        console.log(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/0/getStore`);
         localStorage.setItem("shopOrigin", values.shop + ".com");
-        console.log(`${process.env.AWS_API_GATEWAY}/core/0/getStore`);
+        console.log(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/0/getStore`);
         if(values.shop.split('.')[0] === "undefined"){
             console.log("pass");
         } else{
-            axios.get(`${process.env.AWS_API_GATEWAY}/core/0/getStore`, {
+            axios.get(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/0/getStore`, {
                 params: {
                     "store_hash": values.shop.split('.')[0],
                 },
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 }
             }).then(res => {
                 console.log(res);
@@ -41,14 +42,14 @@ class CreatePermissionUrl extends Component {
                     // Redirect to another uri.
                     window.location.href = "/shopify/callback";
                 } else {
-                    axios.get(`${process.env.AWS_API_GATEWAY}/core/0/createPermissionUrl`, {
+                    axios.get(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/0/createPermissionUrl`, {
                         params: {
                             "shop": values.shop
                         },
                         headers: {
                             Accept: "application/json",
                             "Content-Type": "application/json",
-                            "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                            "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                         }
                     }).then(res => {
                         console.log(res.data);

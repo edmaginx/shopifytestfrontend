@@ -18,13 +18,13 @@ class RequestToken extends Component {
     render() {
         const app = createApp({
             // apiKey: `${process.env.REACT_APP_SHOPIFY_APP_API_KEY}`,
-            apiKey: "2e222e5fc427a57adc4910868561c7a9",
+            apiKey: "515165403620bddcd2c8aa59c7c0ec28",
             // shopOrigin: "edwaleong-0.myshopify.com",
             shopOrigin: localStorage.getItem('shopOrigin'),
             forceRedirect: true
         });
         const redirect = Redirect.create(app);
-        const api_url = process.env.AWS_API_GATEWAY;
+        const api_url = process.env.REACT_APP_AWS_API_GATEWAY;
         const token = localStorage.getItem('token');
         if (token) {
             console.log(token);
@@ -44,7 +44,7 @@ class RequestToken extends Component {
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/json",
-                        "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                        "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                     },
                 })
                 .then(res => {

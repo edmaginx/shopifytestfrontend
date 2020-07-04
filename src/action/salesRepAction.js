@@ -5,7 +5,7 @@ export function getUsers(store_hash){
     return (
         function (dispatch)  {
             console.log(store_hash);
-            axios.get(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/getUsers`, 
+            axios.get(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/getUsers`, 
             {
                 params: 
                 {
@@ -15,7 +15,7 @@ export function getUsers(store_hash){
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 }
             })
             .then (res => {
@@ -39,7 +39,7 @@ export function getUsers(store_hash){
 export function addSalesRep(salesrepData, store_hash, company_id, company_ids){
     return (
         function (dispatch)  {
-            axios.post(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/addUser`, 
+            axios.post(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/addUser`, 
             {
                 "store_hash": store_hash,
                 "user_id": Math.floor(Math.random() * 1000000000000000).toString(),
@@ -53,7 +53,7 @@ export function addSalesRep(salesrepData, store_hash, company_id, company_ids){
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 }
             })
             .then (res => {
@@ -73,7 +73,7 @@ export function addSalesRep(salesrepData, store_hash, company_id, company_ids){
 export function deleteUser(store_hash, user_id){
     return (
         function (dispatch)  {
-            axios.post(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/delUser`, 
+            axios.post(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/delUser`, 
             {
                 "store_hash": store_hash,
                 "user_id": user_id
@@ -83,7 +83,7 @@ export function deleteUser(store_hash, user_id){
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 }
             })
             .then (res => {
@@ -105,7 +105,7 @@ export function updateUser(store_hash, user_id, data){
         function(dispatch){
             console.log("upadting");
             axios.post(
-                `${process.env.AWS_API_GATEWAY}/core/edwaleong-0/updateUser`, 
+                `${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/updateUser`, 
                 {
                     store_hash: store_hash,
                     user_id: user_id,
@@ -117,7 +117,7 @@ export function updateUser(store_hash, user_id, data){
                     headers: {
                         "Accept": "application/json",
                         "Content-Type": "application/x-www-form-urlencoded",
-                        "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                        "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                     },
                 }).then (res => {
                     console.log(res);

@@ -13,8 +13,12 @@ import DashBoard from "./components/landing/DashBoard"
 
 //import Tmp from './components/tmp'
 import Install from "./components/landing/Install";
-require('dotenv').config();
-console.log(process.env.AWS_API_GATEWAY);
+//require('dotenv').config();
+// console.log('test');
+// console.log(process.env.AWS_API_GATEWAY);
+// console.log(process.env.REACT_APP_AWS_API_GATEWAY);
+// console.log(process.env.NODE_ENV);
+// console.log('test2');
 class App extends Component {
   // constructor(){
   //   super();
@@ -23,9 +27,6 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <head>
-          <link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/latest/polaris.css" />
-        </head>
         <div>testing</div>
 
 

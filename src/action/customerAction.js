@@ -4,7 +4,7 @@ import axios from 'axios';
 export function getCustomers(){
     return (
         function (dispatch)  {
-            axios.get(`${process.env.AWS_API_GATEWAY}/core/edwaleong-0/getCustomers`, 
+            axios.get(`${process.env.REACT_APP_AWS_API_GATEWAY}/core/edwaleong-0/getCustomers`, 
             {
                 params: 
                 {
@@ -16,7 +16,7 @@ export function getCustomers(){
                 {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-api-key": `${process.env.AWS_API_GATEWAY_KEY}`
+                    "x-api-key": `${process.env.REACT_APP_AWS_API_GATEWAY_KEY}`
                 }
             })
             .then (res => {
